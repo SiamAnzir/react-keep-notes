@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import NotesContext from "../context/NoteContext";
-import {Container, Tab , Row,Col, Nav, Form, FormControl,Button} from "react-bootstrap";
+import {Container, Tab ,Col, Nav, Form, FormControl} from "react-bootstrap";
 
 const Notes = () => {
 
