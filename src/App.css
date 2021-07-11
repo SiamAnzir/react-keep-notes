@@ -55,10 +55,28 @@
   color: white;
 }
 
-div.content {
+.mainContent{
   margin-left: 250px;
   padding: 1px 16px;
   height: 1000px;
+}
+
+div.content {
+  margin-left: 480px;
+  width: fit-content;
+  padding: 1px 16px;
+  height: 1000px;
+  position: fixed;
+  overflow: auto;
+}
+
+.noteTab {
+  width: 350px;
+  margin-left: 120px;
+  background-color: #e5e5e5;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
 }
 
 @media screen and (max-width: 700px) {

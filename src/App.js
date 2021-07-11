@@ -9,6 +9,7 @@ import AddNote from "./components/AddNote";
 import ScratchPad from "./components/ScratchPad";
 import Favourites from "./components/Favourites";
 import Trash from "./components/Trash";
+import NotesContext from "./context/NoteContext";
 
 const App = () => {
 
@@ -18,14 +19,16 @@ const App = () => {
     <>
       <Router>
           <Sidebar/>
-          <Switch>
-              <Route exact path="/addNote" component={AddNote}/>
-              <Route exact path="/scratchPad" component={ScratchPad}/>
-              <Route exact path="/" component={Notes}/>
-              <Route exact path="/favourites" component={Favourites}/>
-              <Route exact path="/trash" component={Trash}/>
-              <Route path="*" component={() => "404 NOT FOUND"} />
-          </Switch>
+          <NotesContext.Provider value={{notes,setNotes}}>
+              <Switch>
+                  <Route exact path="/addNote" component={AddNote}/>
+                  <Route exact path="/scratchPad" component={ScratchPad}/>
+                  <Route exact path="/" component={Notes}/>
+                  <Route exact path="/favourites" component={Favourites}/>
+                  <Route exact path="/trash" component={Trash}/>
+                  <Route path="*" component={() => "404 NOT FOUND"} />
+              </Switch>
+          </NotesContext.Provider>
       </Router>
     </>
   );
