@@ -8,7 +8,7 @@ const Notes = () => {
     const noteTab = notes.length > 0 ? (
         notes.map(note => (
             <>
-                <Nav variant="pills" className="flex-column">
+                <Nav variant="pills" className="flex-column" key={note.id}>
                     <Nav.Item>
                         <Nav.Link eventKey={note.id}>{note.title}</Nav.Link>
                     </Nav.Item>
@@ -18,10 +18,10 @@ const Notes = () => {
     ) : (
         <div></div>
     );
-    const allNotes = notes.length > 0 ? (
+    const viewNotes = notes.length > 0 ? (
         notes.map(note => (
             <>
-                <Tab.Content>
+                <Tab.Content key={note.id}>
                     <Tab.Pane eventKey={note.id}>
                         <h3>{note.title}</h3>
                         <br/>
@@ -35,7 +35,7 @@ const Notes = () => {
     );
     return(
         <Container>
-            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+            <Tab.Container id="left-tabs-example" defaultActiveKey={notes[0].id}>
                 <div className="noteTab">
                     <Col>
                         <Form inline style={{padding: 10}}>
@@ -49,8 +49,9 @@ const Notes = () => {
                     </Col>
                 </div>
                 <div className="content">
+                    <br/>
                     <Col sm={9}>
-                        {allNotes}
+                        {viewNotes}
                     </Col>
                 </div>
             </Tab.Container>

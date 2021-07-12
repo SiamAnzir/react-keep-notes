@@ -58,16 +58,18 @@
 .mainContent{
   margin-left: 250px;
   padding: 1px 16px;
-  height: 1000px;
+  position: relative;
+  min-height: 100vh;
 }
 
 div.content {
   margin-left: 480px;
   width: fit-content;
   padding: 1px 16px;
-  height: 1000px;
-  position: fixed;
+  position: relative;
+  min-height: 100vh;
   overflow: auto;
+
 }
 
 .noteTab {
@@ -87,6 +89,12 @@ div.content {
   }
   .sidebar a {float: left;}
   div.content {margin-left: 0;}
+  .noteTab {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-left: 0;
+  }
 }
 
 @media screen and (max-width: 400px) {
