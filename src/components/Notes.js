@@ -33,8 +33,16 @@ const Notes = () => {
     ) : (
         <div><h2>There is no notes to show</h2></div>
     );
+
+    const footerText = notes.map(note => (
+       <>
+           <Tab.Content>
+               <Tab.Pane className="m-1" eventKey={note.id}> Created at:  {note.created_at} </Tab.Pane>
+           </Tab.Content>
+       </>
+    ));
     return(
-        <Container>
+        <div>
             <Tab.Container id="left-tabs-example" defaultActiveKey={notes[0].id}>
                 <div className="noteTab">
                     <Col>
@@ -48,14 +56,19 @@ const Notes = () => {
                         {noteTab}
                     </Col>
                 </div>
-                <div className="content">
-                    <br/>
-                    <Col sm={9}>
-                        {viewNotes}
-                    </Col>
+                <div>
+                    <div className="content">
+                        <br/>
+                        <Col sm={12}>
+                            {viewNotes}
+                        </Col>
+                    </div>
+                    <div className="footer">
+                        {footerText}
+                    </div>
                 </div>
             </Tab.Container>
-        </Container>
+        </div>
     )
 }
 

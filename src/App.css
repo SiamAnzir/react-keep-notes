@@ -36,6 +36,7 @@
   position: fixed;
   height: 100%;
   overflow: auto;
+  border-right-style: groove;
 }
 
 .sidebar a {
@@ -63,8 +64,7 @@
 }
 
 div.content {
-  margin-left: 480px;
-  width: fit-content;
+  margin-left: 600px;
   padding: 1px 16px;
   position: relative;
   min-height: 100vh;
@@ -74,11 +74,23 @@ div.content {
 
 .noteTab {
   width: 350px;
-  margin-left: 120px;
+  margin-left: 250px;
   background-color: #e5e5e5;
   position: fixed;
   height: 100%;
   overflow: auto;
+  border-right-style: groove;
+}
+
+.footer{
+  position: fixed;
+  margin-left: 600px;
+  bottom: 0;
+  width: 56%;
+  text-align: center;
+  color: black;
+  background-color: #e5e5e5;
+  border-top-style: outset;
 }
 
 @media screen and (max-width: 700px) {
