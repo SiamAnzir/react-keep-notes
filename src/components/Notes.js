@@ -1,25 +1,36 @@
 import React, {useContext} from "react";
 import NotesContext from "../context/NoteContext";
-import {Container, Tab ,Col, Nav, Form, FormControl} from "react-bootstrap";
+import {Tab ,Col, Nav, Form, FormControl,Row} from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faPenAlt,  faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faStar} from "@fortawesome/free-regular-svg-icons"
 
 const Notes = () => {
 
     const {notes, setNotes} = useContext(NotesContext);
-    const noteTab = notes.length > 0 ? (
-        notes.map(note => (
-            <>
-                <Nav variant="pills" className="flex-column" key={note.id}>
-                    <Nav.Item>
-                        <Nav.Link eventKey={note.id}>{note.title}</Nav.Link>
-                    </Nav.Item>
-                </Nav>
-            </>
-        ))
+
+    const trashNote = (noteId,selectedNote) => {
+        selectedNote.trash = true;
+        setNotes(notes.map(note => (note.id === noteId ? selectedNote : note)));
+    };
+
+    const addToFavouriteNote = (noteId,selectedNote) => {
+        selectedNote.favourite_note = true;
+        setNotes(notes.map(note => (note.id === noteId ? selectedNote : note)));
+    }
+
+    const noteTab = notes.map(note => (note.trash === false) ? (
+        <>
+            <Nav variant="pills" className="flex-column" key={note.id}>
+                <Nav.Item>
+                    <Nav.Link eventKey={note.id}>{note.title}</Nav.Link>
+                </Nav.Item>
+            </Nav>
+        </>
     ) : (
         <div></div>
-    );
-    const viewNotes = notes.length > 0 ? (
-        notes.map(note => (
+    ));
+    const viewNotes = notes.map(note => (note.trash === false) ? (
             <>
                 <Tab.Content key={note.id}>
                     <Tab.Pane eventKey={note.id}>
@@ -29,18 +40,29 @@ const Notes = () => {
                     </Tab.Pane>
                 </Tab.Content>
             </>
-        ))
     ) : (
-        <div><h2>There is no notes to show</h2></div>
-    );
-
-    const footerText = notes.map(note => (
-       <>
-           <Tab.Content>
-               <Tab.Pane className="m-1" eventKey={note.id}> Created at:  {note.created_at} </Tab.Pane>
-           </Tab.Content>
-       </>
+        <div></div>
     ));
+
+    const footerText =  notes.map(note => (note.trash === false) ? (
+        <>
+            <Tab.Content key={note.id}>
+                <Tab.Pane className="m-1" eventKey={note.id}>
+                    <Row>
+                        <Col className="text-start ">
+                            <span style={{ marginLeft: '.8rem' }}> <FontAwesomeIcon icon={faPenAlt}/> </span>
+                            <span style={{ marginLeft: '.8rem' }} onClick={() => addToFavouriteNote(note.id,note)} > <FontAwesomeIcon icon={faStar}/> </span>
+                            <span style={{ marginLeft: '.8rem' }} onClick={() => trashNote(note.id,note)}> <FontAwesomeIcon icon={faTrashAlt}/> </span>
+                        </Col>
+                        <Col className="text-end text-muted"> Created_at: {note.created_at} </Col>
+                    </Row>
+                </Tab.Pane>
+            </Tab.Content>
+        </>
+    ) : (
+        <div></div>
+    ));
+
     return(
         <div>
             <Tab.Container id="left-tabs-example" defaultActiveKey={notes[0].id}>
