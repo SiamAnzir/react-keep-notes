@@ -7,16 +7,12 @@ const AddNote = () => {
 
     const {notes, setNotes} = useContext(NotesContext);
 
-    const addNote = (newNote) => {
-        setNotes([...notes, newNote]);
-    };
-
     const initialNoteState = {id:uuidv4(),title:"",description:"",created_at:new Date().toDateString(),favourite_blog:false, trash:false};
     const [newNote, setCreatedNote] = useState(initialNoteState);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        addNote(newNote);
+        setNotes([...notes,newNote]);
         event.target.reset();
     }
 
@@ -31,14 +27,14 @@ const AddNote = () => {
                 <br/>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="exampleForm.ControlSelect1">
-                        <Form.Control name="title" autoComplete="off" required type="text" placeholder="Give a title for your Note" onChange={handleInputChange} ></Form.Control>
+                        <Form.Control name="title" autoComplete="off" required type="text" placeholder="Title of your Note" onChange={handleInputChange} ></Form.Control>
                     </Form.Group>
                     <br/>
                     <Form.Group>
-                        <Form.Control as="textarea" rows={10} name="description" autoComplete="off" required type="text" placeholder="Describe Your Blog here" onChange={handleInputChange}/>
+                        <Form.Control as="textarea" rows={18} name="description" autoComplete="off" required type="text" placeholder="Description of your note" onChange={handleInputChange}/>
                     </Form.Group>
                     <br/>
-                    <Button variant="success" type="submit" >Create New Blog</Button>
+                    <Button variant="success" type="submit" > Create New Note </Button>
                 </Form>
                 <br/>
             </Container>

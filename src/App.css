@@ -87,7 +87,6 @@ div.content {
   margin-left: 600px;
   bottom: 0;
   width: 56%;
-  text-align: center;
   color: black;
   background-color: #e5e5e5;
   border-top-style: outset;
@@ -101,6 +100,7 @@ div.content {
   }
   .sidebar a {float: left;}
   div.content {margin-left: 0;}
+  .footer {margin-left: 0;}
   .noteTab {
     width: 100%;
     height: auto;
