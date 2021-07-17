@@ -1,5 +1,5 @@
 import React, {useContext , useState} from "react";
-import NotesContext from "../context/NoteContext";
+import NotesContext from "../contexts/NoteContext";
 import { v4 as uuidv4 } from 'uuid';
 import {Container,Form,Button} from "react-bootstrap";
 

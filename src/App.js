@@ -9,7 +9,7 @@ import AddNote from "./components/AddNote";
 import ScratchPad from "./components/ScratchPad";
 import Favourites from "./components/Favourites";
 import Trash from "./components/Trash";
-import NotesContext from "./context/NoteContext";
+import NotesContext from "./contexts/NoteContext";
 
 const App = () => {
 

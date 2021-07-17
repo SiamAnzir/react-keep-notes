@@ -1,6 +1,9 @@
 import React, {useContext} from "react";
-import NotesContext from "../context/NoteContext";
-import {Tab ,Col, Nav, Form, FormControl,Row} from "react-bootstrap";
+import NotesContext from "../contexts/NoteContext";
+import {ViewNotes} from "./ViewNotes";
+import {tabContent,navContent,footerContent} from "./Container";
+import {methods} from "../methods/Methods";
+import {Tab ,Col, Nav, Row} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPenAlt,  faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {faStar} from "@fortawesome/free-regular-svg-icons"
@@ -8,16 +11,6 @@ import {faStar} from "@fortawesome/free-regular-svg-icons"
 const Notes = () => {
 
     const {notes, setNotes} = useContext(NotesContext);
-
-    const trashNote = (noteId,selectedNote) => {
-        selectedNote.trash = true;
-        setNotes(notes.map(note => (note.id === noteId ? selectedNote : note)));
-    };
-
-    const addToFavouriteNote = (noteId,selectedNote) => {
-        selectedNote.favourite_note = true;
-        setNotes(notes.map(note => (note.id === noteId ? selectedNote : note)));
-    }
 
     const noteTab = notes.map(note => (note.trash === false) ? (
         <>
@@ -30,7 +23,7 @@ const Notes = () => {
     ) : (
         <div></div>
     ));
-    const viewNotes = notes.map(note => (note.trash === false) ? (
+    const showNotes = notes.map(note => (note.trash === false) ? (
             <>
                 <Tab.Content key={note.id}>
                     <Tab.Pane eventKey={note.id}>
@@ -51,8 +44,8 @@ const Notes = () => {
                     <Row>
                         <Col className="text-start ">
                             <span style={{ marginLeft: '.8rem' }}> <FontAwesomeIcon icon={faPenAlt}/> </span>
-                            <span style={{ marginLeft: '.8rem' }} onClick={() => addToFavouriteNote(note.id,note)} > <FontAwesomeIcon icon={faStar}/> </span>
-                            <span style={{ marginLeft: '.8rem' }} onClick={() => trashNote(note.id,note)}> <FontAwesomeIcon icon={faTrashAlt}/> </span>
+                            <span style={{ marginLeft: '.8rem' }} onClick={() => methods.addToFavouriteNote(note.id,note,setNotes,notes)} > <FontAwesomeIcon icon={faStar}/> </span>
+                            <span style={{ marginLeft: '.8rem' }} onClick={() => methods.addToTrash(note.id,note,setNotes,notes)}> <FontAwesomeIcon icon={faTrashAlt}/> </span>
                         </Col>
                         <Col className="text-end text-muted"> Created_at: {note.created_at} </Col>
                     </Row>
@@ -64,33 +57,7 @@ const Notes = () => {
     ));
 
     return(
-        <div>
-            <Tab.Container id="left-tabs-example" defaultActiveKey={notes[0].id}>
-                <div className="noteTab">
-                    <Col>
-                        <Form inline style={{padding: 10}}>
-                            <FormControl placeholder="Search Notes By Title"
-                                         value=""
-                                         onChange=""
-                                         type="text"
-                            />
-                        </Form>
-                        {noteTab}
-                    </Col>
-                </div>
-                <div>
-                    <div className="content">
-                        <br/>
-                        <Col sm={12}>
-                            {viewNotes}
-                        </Col>
-                    </div>
-                    <div className="footer">
-                        {footerText}
-                    </div>
-                </div>
-            </Tab.Container>
-        </div>
+        <ViewNotes default={notes[0].id} noteTab={noteTab} showNotes={showNotes} footerText={footerText}/>
     )
 }
 
