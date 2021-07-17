@@ -9,7 +9,7 @@ const Trash = () => {
     const {notes, setNotes} = useContext(NotesContext);
 
     const trashNotes = [];
-    notes.map(note => (note.trash === true) ? ( trashNotes.push(note) ) : ( trashNotes ) );
+    notes.map(note => (note.trash === true) ? ( trashNotes.push(note) ) : ( trashNotes ));
 
     const noteTab = trashNotes.map(note => navContent(note.id, note.title));
 
