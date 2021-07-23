@@ -4,13 +4,18 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenAlt, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {faStar} from "@fortawesome/free-regular-svg-icons";
 
-export const navContent = (id,title) => {
+export const navContent = (id,title,favNote) => {
     return(
         <>
             <>
                 <Nav variant="pills" className="flex-column">
                     <Nav.Item>
-                        <Nav.Link eventKey={id}>{title}</Nav.Link>
+                        <Nav.Link eventKey={id}>
+                            {
+                                (favNote === true) ? ( <FontAwesomeIcon icon={faStar}/> ) : (<span></span>)
+                            }
+                            {title}
+                        </Nav.Link>
                     </Nav.Item>
                 </Nav>
             </>
