@@ -1,11 +1,9 @@
 import React, {useContext , useState} from "react";
 import NotesContext from "../contexts/NoteContext";
 import { v4 as uuidv4 } from 'uuid';
-import {Container, Form, Button, Tab, Row, Col} from "react-bootstrap";
+import {Container, Form, Row, Col} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPenAlt, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import {methods} from "../methods/Methods";
-import {faStar} from "@fortawesome/free-regular-svg-icons";
+import {faPenAlt} from "@fortawesome/free-solid-svg-icons";
 
 const AddNote = () => {
 
