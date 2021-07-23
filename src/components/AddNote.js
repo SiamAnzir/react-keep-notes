@@ -1,13 +1,17 @@
 import React, {useContext , useState} from "react";
 import NotesContext from "../contexts/NoteContext";
 import { v4 as uuidv4 } from 'uuid';
-import {Container,Form,Button} from "react-bootstrap";
+import {Container, Form, Button, Tab, Row, Col} from "react-bootstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPenAlt, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {methods} from "../methods/Methods";
+import {faStar} from "@fortawesome/free-regular-svg-icons";
 
 const AddNote = () => {
 
     const {notes, setNotes} = useContext(NotesContext);
 
-    const initialNoteState = {id:uuidv4(),title:"",description:"",created_at:new Date().toDateString(),favourite_blog:false, trash:false};
+    const initialNoteState = {id:uuidv4(),title:"",description:"",created_at:new Date().toDateString(),favourite_note:false, trash:false,editing:false};
     const [newNote, setCreatedNote] = useState(initialNoteState);
 
     const handleSubmit = (event) => {
@@ -27,14 +31,21 @@ const AddNote = () => {
                 <br/>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="exampleForm.ControlSelect1">
-                        <Form.Control name="title" autoComplete="off" required type="text" placeholder="Title of your Note" onChange={handleInputChange} ></Form.Control>
+                        <Form.Control name="title" autoComplete="off" required type="text" placeholder="Title of your Note" onChange={handleInputChange}/>
                     </Form.Group>
                     <br/>
                     <Form.Group>
                         <Form.Control as="textarea" rows={18} name="description" autoComplete="off" required type="text" placeholder="Description of your note" onChange={handleInputChange}/>
                     </Form.Group>
                     <br/>
-                    <Button variant="success" type="submit" > Create New Note </Button>
+                    <footer>
+                        <Row>
+                            <Col className="text-start ">
+                                <button style={{ marginLeft: '.8rem' }} type="submit"> <FontAwesomeIcon icon={faPenAlt}/> Save </button>
+                            </Col>
+                            <Col className="text-end text-muted"> Created_at : {newNote.created_at} </Col>
+                        </Row>
+                    </footer>
                 </Form>
                 <br/>
             </Container>
