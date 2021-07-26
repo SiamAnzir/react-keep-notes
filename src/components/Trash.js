@@ -8,17 +8,22 @@ const Trash = () => {
 
     const {notes, setNotes} = useContext(NotesContext);
 
+    const updateNote = ( id , updatedNote) => {
+        updatedNote.editing = false;
+        setNotes(notes.map(note => (note.id === id ?  updatedNote  : note)));
+    }
+
     const trashNotes = [];
     notes.map(note => (note.trash === true) ? ( trashNotes.push(note) ) : ( trashNotes ));
 
-    const noteTab = trashNotes.map(note => navContent(note.id, note.title));
+    const noteTab = trashNotes.map(note => navContent(note));
 
-    const showNotes = trashNotes.map(note => tabContent(note.id , note.title , note.description));
+    const showNotes = trashNotes.map(note => tabContent(note,updateNote));
 
-    const footerText = trashNotes.map(note => footerContent(note.id,note,setNotes,notes,methods.addToFavouriteNote,methods.removeFromTrash));
+    const footerText = trashNotes.map(note => footerContent(note,setNotes,notes,methods.addToFavouriteNote,methods.removeFromTrash,methods.clickUpdateButton));
 
     return(
-        <ViewNotes default={trashNotes[0].id} noteTab={noteTab} showNotes={showNotes} footerText={footerText}/>
+        <ViewNotes default={notes[0].id} noteTab={noteTab} showNotes={showNotes} footerText={footerText}/>
     )
 }
 

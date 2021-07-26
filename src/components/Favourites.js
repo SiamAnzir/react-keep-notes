@@ -8,14 +8,19 @@ const Favourites = () => {
 
     const {notes, setNotes} = useContext(NotesContext);
 
+    const updateNote = ( id , updatedNote) => {
+        updatedNote.editing = false;
+        setNotes(notes.map(note => (note.id === id ?  updatedNote  : note)));
+    }
+
     const favouriteNotes = [];
-    notes.map(note => (note.favourite_note === true && note.trash === false) ? ( favouriteNotes.push(note) ) : ( favouriteNotes ) );
+    notes.map(note => (note.favourite_note === true && note.trash === false) ? ( favouriteNotes.push(note) ) : ( favouriteNotes ));
 
-    const noteTab = favouriteNotes.map(note => navContent(note.id, note.title));
+    const noteTab = favouriteNotes.map(note => navContent(note));
 
-    const showNotes = favouriteNotes.map(note => tabContent(note.id , note.title , note.description));
+    const showNotes = favouriteNotes.map(note => tabContent(note,updateNote));
 
-    const footerText = favouriteNotes.map(note => footerContent(note.id,note,setNotes,notes,methods.removeFromFavouriteNote,methods.addToTrash));
+    const footerText = favouriteNotes.map(note => footerContent(note,setNotes,notes,methods.removeFromFavouriteNote,methods.addToTrash,methods.clickUpdateButton));
 
 
     return(
