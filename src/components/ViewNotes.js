@@ -9,8 +9,8 @@ export const ViewNotes = (props) => {
                     <Col>
                         <Form inline style={{padding: 10}}>
                             <FormControl placeholder="Search Notes By Title"
-                                         value=""
-                                         onChange=""
+                                         value={props.searchTerm}
+                                         onChange={props.handleChange}
                                          type="text"
                             />
                         </Form>
@@ -25,7 +25,7 @@ export const ViewNotes = (props) => {
                         </Col>
                     </div>
                     <div className="footer">
-                        {props.footerText}
+                        {props.footerTab}
                     </div>
                 </div>
             </Tab.Container>
