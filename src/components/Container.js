@@ -3,7 +3,7 @@
 import React from "react";
 import {Col, Nav, Row, Tab,OverlayTrigger,Tooltip} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEye, faPenAlt, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faDownload, faEye, faPenAlt, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {faClipboard, faStar} from "@fortawesome/free-regular-svg-icons";
 import EditNote from "./EditNote";
 
@@ -47,7 +47,7 @@ export const tabContent = (note,updateNote) => {
             )
     )
 };
-export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,addFavouriteNote,removeFavouriteNote) => {
+export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,addFavouriteNote,removeFavouriteNote,downloadFile) => {
     return(
         <>
             <Tab.Content key={note.id}>
@@ -81,8 +81,9 @@ export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,
                                 <span className="spanButton" onClick={() => trashMethod(note.id,note,setNotes,notes)}> <FontAwesomeIcon icon={faTrashAlt}/> </span>
                             </OverlayTrigger>
                             <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Copy Text </Tooltip>} placement="top">
-                                <button className="iconButton" onClick={() => navigator.clipboard.writeText(note.description)}><FontAwesomeIcon icon={faClipboard}/></button>
+                                <button className="iconButton" onClick={() => navigator.clipboard.writeText(note.title + " " + note.description)}><FontAwesomeIcon icon={faClipboard}/></button>
                             </OverlayTrigger>
+                            <button className="iconButton" onClick={() => downloadFile(note)}> <FontAwesomeIcon icon={faDownload}/></button>
                         </Col>
                         <Col className="text-end text-muted"> Created_at: {note.created_at} </Col>
                     </Row>

@@ -35,7 +35,7 @@ const Favourites = () => {
 
     const showNotes = favouriteNotes.map(note => tabContent(note,updateNote));
 
-    const footerTab = favouriteNotes.map(note => footerContent(note,setNotes,notes,methods.addToTrash,methods.clickUpdateButton,methods.addToFavouriteNote,methods.removeFromFavouriteNote));
+    const footerTab = favouriteNotes.map(note => footerContent(note,setNotes,notes,methods.addToTrash,methods.clickUpdateButton,methods.addToFavouriteNote,methods.removeFromFavouriteNote,methods.downloadTxtFile));
 
     return(
         <ViewNotes default={notes[0].id} noteTab={noteTab} showNotes={showNotes} footerTab={footerTab} searchTerm={searchTerm} handleChange={handleChange}/>

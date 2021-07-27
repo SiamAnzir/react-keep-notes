@@ -35,7 +35,7 @@ const Trash = () => {
 
     const showNotes = trashNotes.map(note => tabContent(note,updateNote));
 
-    const footerTab = trashNotes.map(note => footerContent(note,setNotes,notes,methods.removeFromTrash,methods.clickUpdateButton,methods.addToFavouriteNote,methods.removeFromFavouriteNote));
+    const footerTab = trashNotes.map(note => footerContent(note,setNotes,notes,methods.removeFromTrash,methods.clickUpdateButton,methods.addToFavouriteNote,methods.removeFromFavouriteNote,methods.downloadTxtFile));
 
     return(
         <ViewNotes default={notes[0].id} noteTab={noteTab} showNotes={showNotes} footerTab={footerTab} searchTerm={searchTerm} handleChange={handleChange}/>
