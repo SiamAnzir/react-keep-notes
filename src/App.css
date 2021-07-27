@@ -92,6 +92,18 @@ div.content {
   border-top-style: outset;
 }
 
+.iconButton{
+  margin-left: .8rem;
+  border: none ;
+  background: none;
+  padding: 0;
+}
+
+.spanButton{
+  cursor: pointer;
+  margin-left: .8rem;
+}
+
 @media screen and (max-width: 700px) {
   .sidebar {
     width: 100%;
