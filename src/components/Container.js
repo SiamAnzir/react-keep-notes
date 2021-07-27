@@ -1,25 +1,25 @@
+// noinspection RequiredAttributes
+
 import React from "react";
-import {Col, Nav, Row, Tab} from "react-bootstrap";
+import {Col, Nav, Row, Tab,OverlayTrigger,Tooltip} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faPenAlt, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import {faStar} from "@fortawesome/free-regular-svg-icons";
+import {faClipboard, faStar} from "@fortawesome/free-regular-svg-icons";
 import EditNote from "./EditNote";
 
 export const navContent = (note) => {
     return(
         <>
-            <>
-                <Nav variant="pills" className="flex-column">
-                    <Nav.Item>
-                        <Nav.Link eventKey={note.id}>
-                            {
-                                (note.favourite_note === true) ? ( <span style={{ marginRight: '.2rem' }}> <FontAwesomeIcon icon={faStar} /> </span> ) : (<span></span>)
-                            }
-                            {note.title}
-                        </Nav.Link>
-                    </Nav.Item>
-                </Nav>
-            </>
+            <Nav variant="pills" className="flex-column">
+                <Nav.Item>
+                    <Nav.Link eventKey={note.id}>
+                        {
+                            (note.favourite_note === true) ? ( <span style={{ marginRight: '.2rem' }}> <FontAwesomeIcon icon={faStar} /> </span> ) : (<span></span>)
+                        }
+                        {note.title}
+                    </Nav.Link>
+                </Nav.Item>
+            </Nav>
         </>
     )
 };
@@ -47,7 +47,7 @@ export const tabContent = (note,updateNote) => {
             )
     )
 };
-export const footerContent = (note,setNotes,notes,favouriteMethod,trashMethod,clickUpdateButton) => {
+export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,addFavouriteNote,removeFavouriteNote) => {
     return(
         <>
             <Tab.Content key={note.id}>
@@ -56,19 +56,33 @@ export const footerContent = (note,setNotes,notes,favouriteMethod,trashMethod,cl
                         <Col className="text-start ">
                             {
                                 (note.editing === false) ? (
-                                    <span style={{ marginLeft: '.8rem' }} onClick={() => clickUpdateButton(note.id,note,setNotes,notes)}> <FontAwesomeIcon icon={faPenAlt}/> </span>
+                                    <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Edit </Tooltip>} placement="top">
+                                        <span className="spanButton" onClick={() => clickUpdateButton(note.id,note,setNotes,notes)}> <FontAwesomeIcon icon={faPenAlt}/> </span>
+                                    </OverlayTrigger>
                                 ) : (
-                                    <button style={{ marginLeft: '.8rem', border: 'none',background: 'none',padding:'0' }} form={note.id} type="submit"> <FontAwesomeIcon icon={faEye}/> </button>
+                                    <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> View </Tooltip>} placement="top">
+                                        <button className="iconButton" form={note.id} type="submit"> <FontAwesomeIcon icon={faEye}/> </button>
+                                    </OverlayTrigger>
                                 )
                             }
                             {
                                 (note.favourite_note === false) ? (
-                                    <span style={{ marginLeft: '.8rem' }} onClick={() => favouriteMethod(note.id,note,setNotes,notes)} > <FontAwesomeIcon icon={faStar}/> </span>
+                                    <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Add To Favourites </Tooltip>} placement="top">
+                                        <span className="spanButton" onClick={() => addFavouriteNote(note.id,note,setNotes,notes)} > <FontAwesomeIcon icon={faStar}/> </span>
+                                    </OverlayTrigger>
                                 ) : (
-                                    <span style={{ marginLeft: '.8rem' }} onClick={() => favouriteMethod(note.id,note,setNotes,notes)} > <FontAwesomeIcon icon={faStar}/> </span>
+                                    <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Remove from Favourites </Tooltip>} placement="top">
+                                        <span className="spanButton" onClick={() => removeFavouriteNote(note.id,note,setNotes,notes)} > <FontAwesomeIcon icon={faStar}/> </span>
+                                    </OverlayTrigger>
+
                                 )
                             }
-                            <span style={{ marginLeft: '.8rem' }} onClick={() => trashMethod(note.id,note,setNotes,notes)}> <FontAwesomeIcon icon={faTrashAlt}/> </span>
+                            <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Add to Trash </Tooltip>} placement="top">
+                                <span className="spanButton" onClick={() => trashMethod(note.id,note,setNotes,notes)}> <FontAwesomeIcon icon={faTrashAlt}/> </span>
+                            </OverlayTrigger>
+                            <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Copy Text </Tooltip>} placement="top">
+                                <button className="iconButton" onClick={() => navigator.clipboard.writeText(note.description)}><FontAwesomeIcon icon={faClipboard}/></button>
+                            </OverlayTrigger>
                         </Col>
                         <Col className="text-end text-muted"> Created_at: {note.created_at} </Col>
                     </Row>
