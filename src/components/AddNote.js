@@ -22,7 +22,6 @@ const AddNote = () => {
         const {name,value} = event.target;
         setCreatedNote({...newNote , [name]:value});
     }
-
     return(
         <section className="mainContent">
             <Container className="text-center">

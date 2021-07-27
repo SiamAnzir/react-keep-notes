@@ -30,8 +30,7 @@ const Notes = () => {
         updatedNote.editing = false;
         setNotes(notes.map(note => (note.id === id ?  updatedNote  : note)));
     }
-
-    const noteTab = searchResults.map(note => navContent(note) );
+    const noteTab = (searchTerm === "") ? (allNotes.map(note => navContent(note))) : (searchResults.map(note => navContent(note)));
 
     const showNotes = allNotes.map(note => tabContent(note,updateNote));
 

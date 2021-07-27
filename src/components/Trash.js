@@ -31,7 +31,14 @@ const Trash = () => {
         setNotes(notes.map(note => (note.id === id ?  updatedNote  : note)));
     }
 
-    const noteTab = searchResults.map(note => navContent(note));
+    const deleteNote = (noteId) => {
+        setNotes(notes.filter((note) => {
+            return note.id !== noteId;
+        }));
+    }
+
+    const noteTab = (searchTerm === "") ? (trashNotes.map(note => navContent(note,deleteNote))) : (searchResults.map(note => navContent(note,deleteNote)));
+
 
     const showNotes = trashNotes.map(note => tabContent(note,updateNote));
 

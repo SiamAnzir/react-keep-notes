@@ -31,7 +31,8 @@ const Favourites = () => {
         setNotes(notes.map(note => (note.id === id ?  updatedNote  : note)));
     }
 
-    const noteTab = searchResults.map(note => navContent(note));
+    const noteTab = (searchTerm === "") ? (favouriteNotes.map(note => navContent(note))) : (searchResults.map(note => navContent(note)));
+
 
     const showNotes = favouriteNotes.map(note => tabContent(note,updateNote));
 

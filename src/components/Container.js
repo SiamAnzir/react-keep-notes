@@ -3,20 +3,24 @@
 import React from "react";
 import {Col, Nav, Row, Tab,OverlayTrigger,Tooltip} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDownload, faEye, faPenAlt, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faDownload, faEye, faPenAlt, faTrash, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {faClipboard, faStar} from "@fortawesome/free-regular-svg-icons";
 import EditNote from "./EditNote";
 
-export const navContent = (note) => {
+export const navContent = (note,deletePermanently) => {
     return(
         <>
             <Nav variant="pills" className="flex-column">
                 <Nav.Item>
                     <Nav.Link eventKey={note.id}>
                         {
-                            (note.favourite_note === true) ? ( <span style={{ marginRight: '.2rem' }}> <FontAwesomeIcon icon={faStar} /> </span> ) : (<span></span>)
+                            (note.favourite_note === true) ? ( <span style={{ marginRight: '.2rem' }}> <FontAwesomeIcon icon={faStar} /> </span> ) : (<span> </span>)
                         }
                         {note.title}
+                        {
+                            (note.trash === true) ? ( <div className="fa-pull-right" id="deleteBtn"  onClick={() => deletePermanently(note.id)}> <FontAwesomeIcon icon={faTrash} /> </div>  ) : (<span> </span>)
+                        }
+                        <div className="hide">Delete Permanently</div>
                     </Nav.Link>
                 </Nav.Item>
             </Nav>

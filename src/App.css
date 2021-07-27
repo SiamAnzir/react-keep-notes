@@ -103,6 +103,15 @@ div.content {
   cursor: pointer;
   margin-left: .8rem;
 }
+.hide {
+  display: none;
+}
+
+#deleteBtn:hover + .hide {
+  display: block;
+  color: red;
+  text-align: right;
+}
 
 @media screen and (max-width: 700px) {
   .sidebar {
