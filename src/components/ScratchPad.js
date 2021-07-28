@@ -1,18 +1,28 @@
 // noinspection RequiredAttributes
 
-import React from "react";
+import React, {useContext} from "react";
 import {Row, Col, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {scratchPadNote} from "../store/AllNotes";
 import useLocalStorage from "../hooks/useLocalStorage";
 import {methods} from "../methods/Methods";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClipboard} from "@fortawesome/free-regular-svg-icons";
-import {faDownload, faEye, faPenAlt} from "@fortawesome/free-solid-svg-icons";
+import {faDownload, faEye, faMoon, faPenAlt} from "@fortawesome/free-solid-svg-icons";
 import EditNote from "./EditNote";
+import NotesContext from "../contexts/NoteContext";
 
 const ScratchPad = () => {
 
     const [scratchPad,setScratchPad] = useLocalStorage('scratchPad',scratchPadNote);
+
+    const {theme,themeState, setThemeState} = useContext(NotesContext);
+
+    const darkMode = () => {
+        setThemeState(theme.dark);
+    };
+    const lightMode = () => {
+        setThemeState(theme.light);
+    };
 
     const updateNote = ( id , updatedNote) => {
         updatedNote.editing = false;
@@ -22,7 +32,10 @@ const ScratchPad = () => {
 
     return(
         <section>
-            <div className="mainContent">
+            <div className="mainContent" style={{
+                backgroundColor: themeState.background,
+                color: themeState.foreground
+            }}>
                 <br/>
                 {
                     (scratchPad[0].editing === false) ? (
@@ -33,13 +46,16 @@ const ScratchPad = () => {
 
                     ) : (
                         <div>
-                            <EditNote currentNote={scratchPad[0]} updateNote = {updateNote}/>
+                            <EditNote currentNote={scratchPad[0]} updateNote = {updateNote} themeState={themeState}/>
                         </div>
                     )
                 }
             </div>
-            <div className="scratchPadFooter">
-                <Row>
+            <div className="scratchPadFooter" style={{
+                backgroundColor: themeState.tabBackground,
+                color: themeState.foreground
+            }}>
+                <Row className="">
                     <Col className="text-start">
                         {
                             (scratchPad[0].editing === false) ? (
@@ -48,14 +64,31 @@ const ScratchPad = () => {
                                 </OverlayTrigger>
                             ) : (
                                 <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> View </Tooltip>} placement="top">
-                                    <button className="iconButton" form={scratchPad[0].id} type="submit"> <FontAwesomeIcon icon={faEye}/> </button>
+                                    <button className="iconButton" form={scratchPad[0].id} type="submit"> <FontAwesomeIcon icon={faEye} color={themeState.foreground}/> </button>
                                 </OverlayTrigger>
                             )
                         }
-                        <button className="iconButton" onClick={() => navigator.clipboard.writeText(scratchPad[0].title + " " + scratchPad[0].description)}><FontAwesomeIcon icon={faClipboard}/></button>
-                        <button className="iconButton" onClick={() => methods.downloadTxtFile(scratchPad[0])}> <FontAwesomeIcon icon={faDownload}/></button>
+                        <span className="spanButton" onClick={() => navigator.clipboard.writeText(scratchPad[0].title + " " + scratchPad[0].description)}><FontAwesomeIcon icon={faClipboard}/></span>
+                        <span className="spanButton" onClick={() => methods.downloadTxtFile(scratchPad[0])}> <FontAwesomeIcon icon={faDownload}/></span>
                     </Col>
-                    <Col className="text-end text-muted"> Created_At: {scratchPad[0].created_at} </Col>
+                    <Col className="text-end text-muted">
+                        Created_At: {scratchPad[0].created_at}
+                        {
+                            (themeState.background === theme.light.background) ? (
+                                <OverlayTrigger placement="top" overlay={<Tooltip id={'tooltip-bottom'}> Turn Dark Mode On </Tooltip>}>
+                                        <span role="img" aria-label="sun" className="spanButton" onClick={darkMode}>
+                                            🌞
+                                        </span>
+                                </OverlayTrigger>
+                            ) : (
+                                <OverlayTrigger placement="top" overlay={<Tooltip id={'tooltip-bottom'}> Turn Dark Mode Off </Tooltip>}>
+                                        <span className="spanButton" onClick={lightMode}>
+                                            <FontAwesomeIcon icon={faMoon} color="white"/>
+                                        </span>
+                                </OverlayTrigger>
+                            )
+                        }
+                    </Col>
                 </Row>
             </div>
         </section>

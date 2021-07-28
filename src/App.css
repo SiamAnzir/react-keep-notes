@@ -75,20 +75,17 @@ div.content {
 .noteTab {
   width: 350px;
   margin-left: 250px;
-  background-color: #e5e5e5;
   position: fixed;
   height: 100%;
   overflow: auto;
   border-right-style: groove;
 }
 
-.footer{
+div.footer{
   position: fixed;
   margin-left: 600px;
   bottom: 0;
   width: 56%;
-  color: black;
-  background-color: #e5e5e5;
   border-top-style: outset;
 }
 .scratchPadFooter{
@@ -96,10 +93,7 @@ div.content {
   margin-left: 250px;
   bottom: 0;
   width: 81.5%;
-  color: black;
-  background-color: #e5e5e5;
   border-top-style: outset;
-  height: 35px;
 }
 .iconButton{
   margin-left: .8rem;
@@ -130,7 +124,7 @@ div.content {
   }
   .sidebar a {float: left;}
   div.content {margin-left: 0;}
-  .footer {margin-left: 0;}
+  div.footer {margin-left: 0; position: relative;overflow: auto;}
   .noteTab {
     width: 100%;
     height: auto;

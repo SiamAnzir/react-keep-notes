@@ -27,11 +27,17 @@ const EditNote = (props) => {
             <br/>
             <Form id={props.currentNote.id} onSubmit={handleSubmit}>
                 <Form.Group controlId="exampleForm.ControlSelect1">
-                    <Form.Control name="title" autoComplete="off" required type="text" value={updatedNote.title} onChange={handleInputChange}/>
+                    <Form.Control style={{
+                        backgroundColor: props.themeState.background,
+                        color: props.themeState.foreground
+                    }} name="title" autoComplete="off" required type="text" value={updatedNote.title} onChange={handleInputChange}/>
                 </Form.Group>
                 <br/>
                 <Form.Group>
-                    <Form.Control as="textarea" rows={18} name="description" autoComplete="off" required type="text" value={updatedNote.description} onChange={handleInputChange}/>
+                    <Form.Control as="textarea" rows={18} style={{
+                        backgroundColor: props.themeState.background,
+                        color: props.themeState.foreground
+                    }} name="description" autoComplete="off" required type="text" value={updatedNote.description} onChange={handleInputChange}/>
                 </Form.Group>
                 <br/>
             </Form>

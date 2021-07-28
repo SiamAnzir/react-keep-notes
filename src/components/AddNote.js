@@ -7,7 +7,7 @@ import {faPenAlt} from "@fortawesome/free-solid-svg-icons";
 
 const AddNote = () => {
 
-    const {notes, setNotes} = useContext(NotesContext);
+    const {notes, setNotes,themeState} = useContext(NotesContext);
 
     const initialNoteState = {id:uuidv4(),title:"",description:"",created_at:new Date().toDateString(),favourite_note:false, trash:false,editing:false};
     const [newNote, setCreatedNote] = useState(initialNoteState);
@@ -24,16 +24,25 @@ const AddNote = () => {
         setCreatedNote({...newNote , [name]:value});
     }
     return(
-        <section className="mainContent">
+        <section className="mainContent" style={{
+            backgroundColor: themeState.background,
+            color: themeState.foreground
+        }}>
             <Container className="text-center">
                 <br/>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="exampleForm.ControlSelect1">
-                        <Form.Control name="title" autoComplete="off" required type="text" placeholder="Title of your Note" onChange={handleInputChange}/>
+                <Form onSubmit={handleSubmit} >
+                    <Form.Group>
+                        <Form.Control style={{
+                            backgroundColor: themeState.background,
+                            color: themeState.foreground
+                        }} name="title" autoComplete="off" required type="text" placeholder="Title of your Note" onChange={handleInputChange}/>
                     </Form.Group>
                     <br/>
                     <Form.Group>
-                        <Form.Control as="textarea" rows={18} name="description" autoComplete="off" required type="text" placeholder="Description of your note" onChange={handleInputChange}/>
+                        <Form.Control as="textarea" rows={18} style={{
+                            backgroundColor: themeState.background,
+                            color: themeState.foreground
+                        }} name="description" autoComplete="off" required type="text" placeholder="Description of your note" onChange={handleInputChange}/>
                     </Form.Group>
                     <br/>
                     <footer>

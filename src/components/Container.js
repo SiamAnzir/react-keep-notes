@@ -3,7 +3,7 @@
 import React from "react";
 import {Col, Nav, Row, Tab,OverlayTrigger,Tooltip} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDownload, faEye, faPenAlt, faTrash, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faDownload, faEye, faMoon, faPenAlt, faTrash, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {faClipboard, faStar} from "@fortawesome/free-regular-svg-icons";
 import EditNote from "./EditNote";
 
@@ -28,7 +28,7 @@ export const navContent = (note,deletePermanently) => {
     )
 };
 
-export const tabContent = (note,updateNote) => {
+export const tabContent = (note,updateNote,themeState) => {
     return(
         (note.editing === false) ? (
             <>
@@ -44,14 +44,14 @@ export const tabContent = (note,updateNote) => {
                 <>
                     <Tab.Content key={note.id}>
                         <Tab.Pane eventKey={note.id}>
-                            <EditNote currentNote={note} updateNote = {updateNote}/>
+                            <EditNote currentNote={note} updateNote = {updateNote} themeState={themeState}/>
                         </Tab.Pane>
                     </Tab.Content>
                 </>
             )
     )
 };
-export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,addFavouriteNote,removeFavouriteNote,downloadFile) => {
+export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,addFavouriteNote,removeFavouriteNote,downloadFile,lightMode,darkMode,themeStateBackground,lightBackground,foreGround) => {
     return(
         <>
             <Tab.Content key={note.id}>
@@ -65,7 +65,7 @@ export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,
                                     </OverlayTrigger>
                                 ) : (
                                     <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> View </Tooltip>} placement="top">
-                                        <button className="iconButton" form={note.id} type="submit"> <FontAwesomeIcon icon={faEye}/> </button>
+                                        <button className="iconButton" form={note.id} type="submit"> <FontAwesomeIcon icon={faEye} color={foreGround}/> </button>
                                     </OverlayTrigger>
                                 )
                             }
@@ -85,11 +85,28 @@ export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,
                                 <span className="spanButton" onClick={() => trashMethod(note.id,note,setNotes,notes)}> <FontAwesomeIcon icon={faTrashAlt}/> </span>
                             </OverlayTrigger>
                             <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Copy Text </Tooltip>} placement="top">
-                                <button className="iconButton" onClick={() => navigator.clipboard.writeText(note.title + " " + note.description)}><FontAwesomeIcon icon={faClipboard}/></button>
+                                <span className="spanButton" onClick={() => navigator.clipboard.writeText(note.title + " " + note.description)}><FontAwesomeIcon icon={faClipboard}/></span>
                             </OverlayTrigger>
-                            <button className="iconButton" onClick={() => downloadFile(note)}> <FontAwesomeIcon icon={faDownload}/></button>
+                            <span className="spanButton" onClick={() => downloadFile(note)}> <FontAwesomeIcon icon={faDownload}/></span>
                         </Col>
-                        <Col className="text-end text-muted"> Created_at: {note.created_at} </Col>
+                        <Col className="text-end text-muted">
+                            Created_at: {note.created_at}
+                            {
+                                (themeStateBackground === lightBackground) ? (
+                                    <OverlayTrigger placement="top" overlay={<Tooltip id={'tooltip-bottom'}> Turn Dark Mode On </Tooltip>}>
+                                        <span role="img" aria-label="sun" className="spanButton" onClick={darkMode}>
+                                            🌞
+                                        </span>
+                                    </OverlayTrigger>
+                                ) : (
+                                    <OverlayTrigger placement="top" overlay={<Tooltip id={'tooltip-bottom'}> Turn Dark Mode Off </Tooltip>}>
+                                        <span className="spanButton" onClick={lightMode}>
+                                            <FontAwesomeIcon icon={faMoon} color="white"/>
+                                        </span>
+                                    </OverlayTrigger>
+                                )
+                            }
+                        </Col>
                     </Row>
                 </Tab.Pane>
             </Tab.Content>

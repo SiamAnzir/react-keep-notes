@@ -19,10 +19,6 @@ export const methods = {
         selectedNote.editing = true;
         setNotes(notes.map(note => (note.id === noteId ? selectedNote : note)));
     },
-    showNote(noteId,selectedNote,setNotes,notes){
-        selectedNote.editing = false;
-        setNotes(notes.map(note => (note.id === noteId ? selectedNote : note)));
-    },
     downloadTxtFile(note){
         const element = document.createElement("a");
         const file = new Blob([note.title + "\n" + note.description], {type: 'text/plain'});
@@ -30,5 +26,11 @@ export const methods = {
         element.download = note.created_at +".txt"
         document.body.appendChild(element); // Required for this to work in FireFox
         element.click();
+    },
+    darkMode(setThemeState,theme){
+        setThemeState(theme.dark);
+    },
+    lightMode(setThemeState,theme){
+        setThemeState(theme.light);
     }
 }

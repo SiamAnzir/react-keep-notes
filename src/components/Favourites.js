@@ -7,7 +7,14 @@ import {methods} from "../methods/Methods";
 
 const Favourites = () => {
 
-    const {notes, setNotes} = useContext(NotesContext);
+    const {notes, setNotes,theme,themeState, setThemeState} = useContext(NotesContext);
+
+    const darkMode = () => {
+        setThemeState(theme.dark);
+    };
+    const lightMode = () => {
+        setThemeState(theme.light);
+    };
 
     const favouriteNotes = [];
     notes.map(note => (note.favourite_note === true && note.trash === false) ? ( favouriteNotes.push(note) ) : ( favouriteNotes ));
@@ -34,12 +41,12 @@ const Favourites = () => {
     const noteTab = (searchTerm === "") ? (favouriteNotes.map(note => navContent(note))) : (searchResults.map(note => navContent(note)));
 
 
-    const showNotes = favouriteNotes.map(note => tabContent(note,updateNote));
+    const showNotes = favouriteNotes.map(note => tabContent(note,updateNote,themeState));
 
-    const footerTab = favouriteNotes.map(note => footerContent(note,setNotes,notes,methods.addToTrash,methods.clickUpdateButton,methods.addToFavouriteNote,methods.removeFromFavouriteNote,methods.downloadTxtFile));
+    const footerTab = favouriteNotes.map(note => footerContent(note,setNotes,notes,methods.addToTrash,methods.clickUpdateButton,methods.addToFavouriteNote,methods.removeFromFavouriteNote,methods.downloadTxtFile,lightMode,darkMode,themeState.background,theme.light.background,themeState.foreground));
 
     return(
-        <ViewNotes default={notes[0].id} noteTab={noteTab} showNotes={showNotes} footerTab={footerTab} searchTerm={searchTerm} handleChange={handleChange}/>
+        <ViewNotes default={notes[0].id} noteTab={noteTab} showNotes={showNotes} footerTab={footerTab} searchTerm={searchTerm} handleChange={handleChange} themeState={themeState}/>
     )
 }
 

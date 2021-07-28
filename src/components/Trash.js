@@ -7,7 +7,14 @@ import {methods} from "../methods/Methods";
 
 const Trash = () => {
 
-    const {notes, setNotes} = useContext(NotesContext);
+    const {notes, setNotes,theme,themeState, setThemeState} = useContext(NotesContext);
+
+    const darkMode = () => {
+        setThemeState(theme.dark);
+    };
+    const lightMode = () => {
+        setThemeState(theme.light);
+    };
 
     const trashNotes = [];
     notes.map(note => (note.trash === true) ? ( trashNotes.push(note) ) : ( trashNotes ));
@@ -40,30 +47,13 @@ const Trash = () => {
     const noteTab = (searchTerm === "") ? (trashNotes.map(note => navContent(note,deleteNote))) : (searchResults.map(note => navContent(note,deleteNote)));
 
 
-    const showNotes = trashNotes.map(note => tabContent(note,updateNote));
+    const showNotes = trashNotes.map(note => tabContent(note,updateNote,themeState));
 
-    const footerTab = trashNotes.map(note => footerContent(note,setNotes,notes,methods.removeFromTrash,methods.clickUpdateButton,methods.addToFavouriteNote,methods.removeFromFavouriteNote,methods.downloadTxtFile));
+    const footerTab = trashNotes.map(note => footerContent(note,setNotes,notes,methods.removeFromTrash,methods.clickUpdateButton,methods.addToFavouriteNote,methods.removeFromFavouriteNote,methods.downloadTxtFile,lightMode,darkMode,themeState.background,theme.light.background,themeState.foreground));
 
     return(
-        <ViewNotes default={notes[0].id} noteTab={noteTab} showNotes={showNotes} footerTab={footerTab} searchTerm={searchTerm} handleChange={handleChange}/>
+        <ViewNotes default={notes[0].id} noteTab={noteTab} showNotes={showNotes} footerTab={footerTab} searchTerm={searchTerm} handleChange={handleChange} themeState={themeState}/>
     )
 }
 
 export default Trash;
-
-/**
- const noteTab = notes.map(note => (note.trash === true) ? (
- navContent(note.id , note.title)
- ) : (
- <div></div>
- ));
- const showNotes = notes.map(note => (note.trash === true) ? (
- tabContent(note.id , note.title , note.description)
- ) : (
- <div></div>
- ));
- const footerText =  notes.map(note => (note.trash === true) ? (
- footerContent(note.id,note,setNotes,notes,methods.addToFavouriteNote,methods.removeFromTrash)
- ) : (
- <div></div>
- ));**/
