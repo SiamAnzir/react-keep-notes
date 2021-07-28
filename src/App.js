@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {BrowserRouter as Router , Switch , Route } from "react-router-dom";
 import './App.css';
 import useLocalStorage from "./hooks/useLocalStorage";
@@ -10,16 +10,19 @@ import ScratchPad from "./components/ScratchPad";
 import Favourites from "./components/Favourites";
 import Trash from "./components/Trash";
 import NotesContext from "./contexts/NoteContext";
+import {ThemeContext} from "./contexts/ThemeContext";
 
 const App = () => {
 
     const [notes,setNotes] = useLocalStorage('notes',AllNotes);
+    const theme = useContext(ThemeContext);
+    const [themeState, setThemeState] = useLocalStorage('theme', theme.light);
 
-  return (
+    return (
     <>
       <Router>
           <Sidebar/>
-          <NotesContext.Provider value={{notes,setNotes}}>
+          <NotesContext.Provider value={{notes,setNotes,theme,themeState,setThemeState}}>
               <Switch>
                   <Route exact path="/addNote" component={AddNote}/>
                   <Route exact path="/scratchPad" component={ScratchPad}/>
