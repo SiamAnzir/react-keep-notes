@@ -16,6 +16,7 @@ const AddNote = () => {
         event.preventDefault();
         setNotes([...notes,newNote]);
         event.target.reset();
+        window.location.reload();
     }
 
     const handleInputChange = (event) => {

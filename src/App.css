@@ -91,7 +91,16 @@ div.content {
   background-color: #e5e5e5;
   border-top-style: outset;
 }
-
+.scratchPadFooter{
+  position: fixed;
+  margin-left: 250px;
+  bottom: 0;
+  width: 81.5%;
+  color: black;
+  background-color: #e5e5e5;
+  border-top-style: outset;
+  height: 35px;
+}
 .iconButton{
   margin-left: .8rem;
   border: none ;
