@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {BrowserRouter as Router , Switch , Route } from "react-router-dom";
+import {HashRouter as Router , Switch , Route } from "react-router-dom";
 import './App.css';
 import useLocalStorage from "./hooks/useLocalStorage";
 import {AllNotes} from "./store/AllNotes";
@@ -20,7 +20,7 @@ const App = () => {
 
     return (
     <>
-      <Router>
+      <Router basename='/'>>
           <Sidebar/>
           <NotesContext.Provider value={{notes,setNotes,theme,themeState,setThemeState}}>
               <Switch>
