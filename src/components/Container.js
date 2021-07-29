@@ -1,7 +1,7 @@
 // noinspection RequiredAttributes
 
 import React from "react";
-import {Col, Nav, Row, Tab,OverlayTrigger,Tooltip} from "react-bootstrap";
+import {Col, Nav, Row, Tab, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDownload, faEye, faMoon, faPenAlt, faTrash, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {faClipboard, faStar} from "@fortawesome/free-regular-svg-icons";

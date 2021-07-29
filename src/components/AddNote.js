@@ -1,7 +1,7 @@
 import React, {useContext , useState} from "react";
 import NotesContext from "../contexts/NoteContext";
 import { v4 as uuidv4 } from 'uuid';
-import {Container, Form, Row, Col} from "react-bootstrap";
+import {Container, Form, Row, Col,Toast} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenAlt} from "@fortawesome/free-solid-svg-icons";
 
@@ -11,12 +11,18 @@ const AddNote = () => {
 
     const initialNoteState = {id:uuidv4(),title:"",description:"",created_at:new Date().toDateString(),favourite_note:false, trash:false,editing:false};
     const [newNote, setCreatedNote] = useState(initialNoteState);
+    const [show, setShow] = useState(false);
+
+    const reload = () => {
+        window.location.reload();
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setNotes([...notes,newNote]);
         event.target.reset();
-        window.location.reload();
+        setShow(true);
+        setTimeout(reload, 1500);
     }
 
     const handleInputChange = (event) => {
@@ -29,6 +35,13 @@ const AddNote = () => {
             color: themeState.foreground
         }}>
             <Container className="text-center">
+                <Toast className="d-inline-block m-1" style={{color:"green"}} onClose={() => setShow(false)} show={show} delay={1500} autohide>
+                    <Row>
+                        <Col>
+                            <h5>Note Created Successfully</h5>
+                        </Col>
+                    </Row>
+                </Toast>
                 <br/>
                 <Form onSubmit={handleSubmit} >
                     <Form.Group>

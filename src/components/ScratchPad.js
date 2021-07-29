@@ -1,7 +1,7 @@
 // noinspection RequiredAttributes
 
-import React, {useContext} from "react";
-import {Row, Col, OverlayTrigger, Tooltip} from "react-bootstrap";
+import React, {useContext, useState} from "react";
+import {Row, Col, OverlayTrigger, Tooltip, Toast} from "react-bootstrap";
 import {scratchPadNote} from "../store/AllNotes";
 import useLocalStorage from "../hooks/useLocalStorage";
 import {methods} from "../methods/Methods";
@@ -17,6 +17,7 @@ const ScratchPad = () => {
     const [scratchPad,setScratchPad] = useLocalStorage('scratchPad',scratchPadNote);
 
     const {theme,themeState, setThemeState} = useContext(NotesContext);
+    const [show, setShow] = useState(false);
 
     const darkMode = () => {
         setThemeState(theme.dark);
@@ -29,7 +30,6 @@ const ScratchPad = () => {
         updatedNote.editing = false;
         setScratchPad(scratchPad.map(note => (note.id === id ?  updatedNote  : note)));
     }
-    console.log(scratchPad[0].title);
 
     return(
         <section>
@@ -38,6 +38,13 @@ const ScratchPad = () => {
                 color: themeState.foreground
             }}>
                 <br/>
+                <Toast className="d-inline-block m-1" style={{color:"green"}} onClose={() => setShow(false)} show={show} delay={1500} autohide>
+                    <Row>
+                        <Col>
+                            <h5>Note Copied Successfully</h5>
+                        </Col>
+                    </Row>
+                </Toast>
                 {
                     (scratchPad[0].editing === false) ? (
                         <div>
@@ -70,7 +77,7 @@ const ScratchPad = () => {
                             )
                         }
                         <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Copy Text </Tooltip>} placement="top">
-                            <span className="spanButton" onClick={() => navigator.clipboard.writeText(scratchPad[0].title + " " + scratchPad[0].description)}><FontAwesomeIcon icon={faClipboard}/></span>
+                            <span className="spanButton" onClick={() =>{navigator.clipboard.writeText(scratchPad[0].title + " " + scratchPad[0].description) ; setShow(true);} }><FontAwesomeIcon icon={faClipboard}/></span>
                         </OverlayTrigger>
                         <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Download Note </Tooltip>} placement="top">
                             <span className="spanButton" onClick={() => methods.downloadTxtFile(scratchPad[0])}> <FontAwesomeIcon icon={faDownload}/></span>
