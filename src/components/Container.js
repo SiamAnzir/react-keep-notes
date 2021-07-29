@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDownload, faEye, faMoon, faPenAlt, faTrash, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {faClipboard, faStar} from "@fortawesome/free-regular-svg-icons";
 import EditNote from "./EditNote";
+import {faGithub} from "@fortawesome/free-brands-svg-icons";
 
 export const navContent = (note,deletePermanently) => {
     return(
@@ -57,7 +58,7 @@ export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,
             <Tab.Content key={note.id}>
                 <Tab.Pane className="m-1" eventKey={note.id}>
                     <Row>
-                        <Col className="text-start ">
+                        <Col xl={6} lg={12}>
                             {
                                 (note.editing === false) ? (
                                     <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Edit </Tooltip>} placement="top">
@@ -81,15 +82,17 @@ export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,
 
                                 )
                             }
-                            <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Add to Trash </Tooltip>} placement="top">
+                            <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> {(note.trash === false) ? ("Add to Trash"):("Remove from Trash")}  </Tooltip>} placement="top">
                                 <span className="spanButton" onClick={() => trashMethod(note.id,note,setNotes,notes)}> <FontAwesomeIcon icon={faTrashAlt}/> </span>
                             </OverlayTrigger>
                             <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Copy Text </Tooltip>} placement="top">
                                 <span className="spanButton" onClick={() => navigator.clipboard.writeText(note.title + " " + note.description)}><FontAwesomeIcon icon={faClipboard}/></span>
                             </OverlayTrigger>
-                            <span className="spanButton" onClick={() => downloadFile(note)}> <FontAwesomeIcon icon={faDownload}/></span>
+                            <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Download Note </Tooltip>} placement="top">
+                                <span className="spanButton" onClick={() => downloadFile(note)}> <FontAwesomeIcon icon={faDownload}/></span>
+                            </OverlayTrigger>
                         </Col>
-                        <Col className="text-end text-muted">
+                        <Col className="text-xl-end text-lg-start text-muted" xl={6} lg={12}>
                             Created_at: {note.created_at}
                             {
                                 (themeStateBackground === lightBackground) ? (
@@ -106,6 +109,7 @@ export const footerContent = (note,setNotes,notes,trashMethod,clickUpdateButton,
                                     </OverlayTrigger>
                                 )
                             }
+                            <a href="https://github.com/SiamAnzir/react-keep-notes" className="spanButton" style={{marginRight:".8rem"}}><FontAwesomeIcon icon={faGithub} color={foreGround}/></a>
                         </Col>
                     </Row>
                 </Tab.Pane>

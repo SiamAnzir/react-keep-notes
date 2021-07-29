@@ -10,6 +10,7 @@ import {faClipboard} from "@fortawesome/free-regular-svg-icons";
 import {faDownload, faEye, faMoon, faPenAlt} from "@fortawesome/free-solid-svg-icons";
 import EditNote from "./EditNote";
 import NotesContext from "../contexts/NoteContext";
+import {faGithub} from "@fortawesome/free-brands-svg-icons";
 
 const ScratchPad = () => {
 
@@ -56,7 +57,7 @@ const ScratchPad = () => {
                 color: themeState.foreground
             }}>
                 <Row className="">
-                    <Col className="text-start">
+                    <Col xl={6} lg={12}>
                         {
                             (scratchPad[0].editing === false) ? (
                                 <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Edit </Tooltip>} placement="top">
@@ -68,10 +69,14 @@ const ScratchPad = () => {
                                 </OverlayTrigger>
                             )
                         }
-                        <span className="spanButton" onClick={() => navigator.clipboard.writeText(scratchPad[0].title + " " + scratchPad[0].description)}><FontAwesomeIcon icon={faClipboard}/></span>
-                        <span className="spanButton" onClick={() => methods.downloadTxtFile(scratchPad[0])}> <FontAwesomeIcon icon={faDownload}/></span>
+                        <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Copy Text </Tooltip>} placement="top">
+                            <span className="spanButton" onClick={() => navigator.clipboard.writeText(scratchPad[0].title + " " + scratchPad[0].description)}><FontAwesomeIcon icon={faClipboard}/></span>
+                        </OverlayTrigger>
+                        <OverlayTrigger overlay={<Tooltip id={'tooltip-bottom'}> Download Note </Tooltip>} placement="top">
+                            <span className="spanButton" onClick={() => methods.downloadTxtFile(scratchPad[0])}> <FontAwesomeIcon icon={faDownload}/></span>
+                        </OverlayTrigger>
                     </Col>
-                    <Col className="text-end text-muted">
+                    <Col className="text-xl-end text-lg-start text-muted" xl={6} lg={12}>
                         Created_At: {scratchPad[0].created_at}
                         {
                             (themeState.background === theme.light.background) ? (
@@ -88,6 +93,7 @@ const ScratchPad = () => {
                                 </OverlayTrigger>
                             )
                         }
+                        <a href="https://github.com/SiamAnzir/react-keep-notes" className="spanButton" style={{marginRight:".8rem"}}><FontAwesomeIcon icon={faGithub} color={themeState.foreground}/></a>
                     </Col>
                 </Row>
             </div>

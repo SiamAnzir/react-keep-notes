@@ -3,7 +3,7 @@ import {Col, Form, FormControl, Tab} from "react-bootstrap";
 
 export const ViewNotes = (props) => {
     return(
-        <section>
+        <section className="grid-container">
             <Tab.Container id="left-tabs-example" defaultActiveKey={props.default}>
                 <div className="noteTab" style={{
                     backgroundColor: props.themeState.tabBackground,
