@@ -20,7 +20,7 @@ const App = () => {
 
     return (
     <>
-      <Router basename='/'>>
+      <Router basename='/'>
           <Sidebar/>
           <NotesContext.Provider value={{notes,setNotes,theme,themeState,setThemeState}}>
               <Switch>
