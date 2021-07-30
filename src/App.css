@@ -46,10 +46,6 @@
   text-decoration: none;
 }
 
-.sidebar a.active {
-  background-color: #04AA6D;
-  color: white;
-}
 
 .sidebar a:hover:not(.active) {
   background-color: black;
@@ -61,6 +57,7 @@
   padding: 1px 16px;
   position: relative;
   min-height: 100vh;
+  overflow: auto;
 }
 
 .noteTab {
@@ -126,8 +123,10 @@ div.footer{
     position: relative;
   }
   .sidebar a {float: left;}
+  .mainContent {margin-left: 0;}
   div.content {margin-left: 0;}
   div.footer {margin-left: 0; position: relative;overflow: auto;}
+  .scratchPadFooter{margin-left: 0; position: relative;overflow: auto;}
   .noteTab {
     width: 100%;
     height: auto;
